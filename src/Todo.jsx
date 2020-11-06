@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "./Store";
 
-const Todo = (props) => {
-  const { setInput, submit, input } = props;
+const Todo = () => {
+  const context = useContext(AppContext);
+  const { list, input } = context;
+  const [listValue, setList] = list;
+  const [inputValue, setInput] = input;
+
+  const handleSubmit = () => {
+    setList([...listValue, { todo: inputValue, isComplete: false }]);
+    setInput("");
+  };
+
   return (
     <div>
       <input
         type="text"
         name="Todo"
         id=""
-        value={input}
+        value={inputValue}
         onChange={(event) => {
           const input = event.target.value;
           setInput(input);
@@ -16,7 +26,7 @@ const Todo = (props) => {
       />
       <button
         onClick={() => {
-          submit();
+          handleSubmit();
         }}
       >
         To Do
