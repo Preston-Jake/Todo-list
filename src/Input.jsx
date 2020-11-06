@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "./Store";
 
-const Input = (props) => {
+const Input = () => {
+  const context = useContext(AppContext);
+  const { input } = context;
+  const [inputValue] = input;
+
   return (
     <div>
-      <h2>{props.input}</h2>
+      <h2>{inputValue}</h2>
     </div>
   );
 };
