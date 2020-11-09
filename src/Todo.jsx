@@ -3,14 +3,7 @@ import { AppContext } from "./Store";
 
 const Todo = () => {
   const context = useContext(AppContext);
-  const { list, input } = context;
-  const [listValue, setList] = list;
-  const [inputValue, setInput] = input;
-
-  const handleSubmit = () => {
-    setList([...listValue, { todo: inputValue, isComplete: false }]);
-    setInput("");
-  };
+  const { dispatch, state } = context;
 
   return (
     <div>
@@ -18,15 +11,15 @@ const Todo = () => {
         type="text"
         name="Todo"
         id=""
-        value={inputValue}
+        value={state.input}
         onChange={(event) => {
-          const input = event.target.value;
-          setInput(input);
+          const newInput = event.target.value;
+          dispatch({ type: "onChange", payload: newInput });
         }}
       />
       <button
         onClick={() => {
-          handleSubmit();
+          dispatch({ type: "onSubmit" });
         }}
       >
         To Do

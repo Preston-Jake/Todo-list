@@ -3,12 +3,10 @@ import { AppContext } from "./Store";
 
 const Input = () => {
   const context = useContext(AppContext);
-  const { input } = context;
-  const [inputValue] = input;
-
+  const { state } = context;
   return (
     <div>
-      <h2>{inputValue}</h2>
+      <h2>{state.input}</h2>
     </div>
   );
 };
