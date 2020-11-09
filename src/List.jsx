@@ -14,44 +14,23 @@ const H3 = styled.h3`
 
 export default function List() {
   const context = useContext(AppContext);
-
-  const { list, rerender } = context;
-  const [listValue, setList] = list;
-  const [rerendreValue, setRerender] = rerender;
-
-  const handleCompleted = (element, index) => {
-    let newElement = element;
-    let newList = listValue;
-    newElement.isComplete = !element.isComplete;
-    newList[index] = newElement;
-    setList(newList);
-    setRerender(true);
-  };
-
-  const handleDelete = (index) => {
-    let newList = listValue;
-    const removed = newList.splice(index, 1);
-    setList(newList);
-    setRerender(true);
-  };
-
+  const { dispatch, state } = context;
   return (
     <div>
-      {listValue.map((el, index) => {
-        console.log(el);
+      {state.list.map((el, i) => {
         return (
-          <div key={index}>
+          <div key={i}>
             <H3 complete={el.isComplete}>{el.todo}</H3>
             <button
               onClick={() => {
-                handleCompleted(el, index);
+                dispatch({ type: "onToggle", index: i });
               }}
             >
               complete
             </button>
             <button
               onClick={() => {
-                handleDelete(index);
+                dispatch({ type: "onDelete", index: i });
               }}
             >
               delete
